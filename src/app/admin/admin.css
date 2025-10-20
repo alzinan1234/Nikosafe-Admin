@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* The .jodit-container.jodit_theme_dark ensures it only applies when the dark theme is active */
+.jodit-container.jodit_theme_dark .jodit-workplace,
+.jodit-container.jodit_theme_dark .jodit-wysiwyg {
+  background-color: #343434 !important; /* Matches your 'dark-bg' color */
+  color: #ffffff !important;
+  padding: 20px;
+  
+border: none;
+   /* Ensure text remains white */
+}
+
+.jodit-container.jodit_theme_dark .jodit-toolbar__box {
+  background-color: #343434 !important;
+  border: none;
+
+
+  padding-bottom: 0px;
+  
+
+  
+   /* Matches your 'dark-bg' color */
+}
+
+
+
+
+/* styles/globals.css */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari, Opera */
+}
+
+
+
+.promotion-btn {
+  display: flex;
+height: 31.5px;
+padding: 0px 13px 0px 2px;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 10px;
+}
