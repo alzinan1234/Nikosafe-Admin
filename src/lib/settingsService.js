@@ -448,14 +448,32 @@ export const settingsService = {
           window.location.href = '/';
           throw new Error('Session expired. Please login again.');
         }
-        const errorData = await response.json().catch(() => ({}));
+        // Try to parse error JSON, but handle non-JSON responses gracefully
+        let errorData = {};
+        try {
+          errorData = await response.json();
+        } catch (e) {
+          console.warn('deleteFaq: non-JSON error response', e);
+        }
         throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
+      // Some backends return 204 No Content or an empty body on successful DELETE.
+      if (response.status === 204) {
+        return { success: true, message: 'FAQ deleted successfully' };
+      }
+
+      // Try to parse response body if present
+      let data = {};
+      try {
+        data = await response.json();
+      } catch (e) {
+        console.warn('deleteFaq: delete succeeded but response is not JSON', e);
+      }
+
       return {
         success: true,
-        message: data.message || 'FAQ deleted successfully'
+        message: data?.message || 'FAQ deleted successfully'
       };
     } catch (error) {
       console.error('deleteFaq error:', error);
