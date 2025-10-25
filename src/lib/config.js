@@ -1,6 +1,6 @@
-// lib/config.js - Updated with user management endpoints
+// lib/config.js - Updated with withdrawal endpoints
 export const API_CONFIG = {
-    BASE_URL: "https://brief-produces-filter-stockings.trycloudflare.com",
+    BASE_URL: "https://tamil-opt-healthy-will.trycloudflare.com",
     ENDPOINTS: {
         // ==================== AUTHENTICATION ====================
         ADMIN_LOGIN: "/api/accounts/login/",
@@ -43,6 +43,14 @@ export const API_CONFIG = {
         ADMIN_REGISTRATIONS_DELETE: (registrationId) => `/api/dashboard/admin/registrations/${registrationId}/`,
         ADMIN_REGISTRATIONS_UPDATE: (registrationId) => `/api/dashboard/admin/registrations/${registrationId}/`,
         
+        // ==================== ADMIN - WITHDRAWALS ====================
+        ADMIN_WITHDRAWALS_GET_ALL: "/api/dashboard/admin/withdrawals/1/",
+        ADMIN_WITHDRAWALS_PENDING: "/api/dashboard/admin/withdrawals/pending/",
+        ADMIN_WITHDRAWALS_GET_DETAIL: (withdrawalId) => `/api/dashboard/admin/withdrawals/${withdrawalId}/`,
+        ADMIN_WITHDRAWALS_APPROVE: (withdrawalId) => `/api/dashboard/admin/withdrawals/${withdrawalId}/approve/`,
+        ADMIN_WITHDRAWALS_REJECT: (withdrawalId) => `/api/dashboard/admin/withdrawals/${withdrawalId}/approve/`,
+        ADMIN_WITHDRAWALS_PROCESSING: (withdrawalId) => `/api/dashboard/admin/withdrawals/${withdrawalId}/processing/`,
+        
         // ==================== ADMIN - SETTINGS ====================
         ADMIN_SETTINGS_GET: "/api/core/settings/",
         ADMIN_SETTINGS_GET_DETAIL: (settingType) => `/api/core/settings/${settingType}/`,
@@ -53,10 +61,21 @@ export const API_CONFIG = {
         // ==================== ADMIN - FAQs ====================
         ADMIN_FAQS_GET: "/api/core/faqs/",
         ADMIN_FAQS_GET_DETAIL: (faqId) => `/api/core/faqs/${faqId}/`,
-    // Note: backend exposes a dedicated create path and a delete path with trailing 'delete/'
-    ADMIN_FAQS_CREATE: "/api/core/faqs/create/",
-    ADMIN_FAQS_UPDATE: (faqId) => `/api/core/faqs/${faqId}/`,
-    ADMIN_FAQS_DELETE: (faqId) => `/api/core/faqs/${faqId}/delete/`,
+        ADMIN_FAQS_CREATE: "/api/core/faqs/create/",
+        ADMIN_FAQS_UPDATE: (faqId) => `/api/core/faqs/${faqId}/`,
+        ADMIN_FAQS_DELETE: (faqId) => `/api/core/faqs/${faqId}/delete/`,
+
+
+
+        // ==================== NOTIFICATIONS ====================
+        NOTIFICATION_LIST: "/api/notification/list/",
+        NOTIFICATION_DETAIL: (notificationId) => `/api/notification/list/${notificationId}/`,
+        NOTIFICATION_MARK_READ: (notificationId) => `/api/notification/list/${notificationId}/mark_read/`,
+        NOTIFICATION_MARK_UNREAD: (notificationId) => `/api/notification/list/${notificationId}/mark_unread/`,
+        NOTIFICATION_MARK_ALL_READ: "/api/notification/list/mark_all_read/",
+        NOTIFICATION_UNREAD_COUNT: "/api/notification/list/unread_count/",
+        NOTIFICATION_DELETE: (notificationId) => `/api/notification/list/${notificationId}/`,
+        NOTIFICATION_CLEAR_ALL: "/api/notification/list/clear_all/",
     }
 };
 

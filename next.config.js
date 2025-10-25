@@ -2,8 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["via.placeholder.com", "luke-stat-forming-kinase.trycloudflare.com"], // Add domains for external images
-    // Also allow remote patterns (useful if hostnames or paths vary)
+    domains: [
+      "via.placeholder.com", 
+      "luke-stat-forming-kinase.trycloudflare.com",
+      "weekly-ontario-picked-qualified.trycloudflare.com" // Added new domain
+    ],
     remotePatterns: [
       {
         protocol: 'http',
@@ -14,6 +17,18 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'luke-stat-forming-kinase.trycloudflare.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'weekly-ontario-picked-qualified.trycloudflare.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'weekly-ontario-picked-qualified.trycloudflare.com',
         port: '',
         pathname: '/**',
       },
