@@ -1,18 +1,27 @@
 "use client";
 
+import { profileService } from "@/lib/profileService";
 import React, { useState } from "react";
+
 
 export default function ChangePasswordForm() {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState(""); // 'success' or 'error'
+  const [messageType, setMessageType] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage(""); // Clear previous messages
+    setMessage("");
     setMessageType("");
+
+    if (!currentPassword || !newPassword || !confirmedPassword) {
+      setMessage("All fields are required");
+      setMessageType("error");
+      return;
+    }
 
     if (newPassword !== confirmedPassword) {
       setMessage("New password and confirmed password do not match.");
@@ -20,24 +29,49 @@ export default function ChangePasswordForm() {
       return;
     }
 
-    // In a real application, you would send this data to your backend API
-    // For demonstration purposes, we'll simulate a successful change
-    setTimeout(() => {
-      setMessage("Password changed successfully!");
+    if (newPassword.length < 8) {
+      setMessage("Password must be at least 8 characters long");
+      setMessageType("error");
+      return;
+    }
+
+    setLoading(true);
+
+    const result = await profileService.changePassword({
+      oldPassword: currentPassword,
+      newPassword: newPassword,
+      newPassword2: confirmedPassword
+    });
+
+    if (result.success) {
+      setMessage(result.message || "Password changed successfully!");
       setMessageType("success");
       setCurrentPassword("");
       setNewPassword("");
       setConfirmedPassword("");
-    }, 1000);
+    } else {
+      setMessage(result.error || "Failed to change password");
+      setMessageType("error");
+    }
+
+    setLoading(false);
   };
 
   return (
     <form onSubmit={handleSubmit} className="p-6 flex flex-col items-center">
-      {" "}
-      {/* Added flex-col and items-center to center form fields */}
+      {message && (
+        <div
+          className={`w-full max-w-[982px] mb-4 p-3 rounded ${
+            messageType === "success"
+              ? "bg-green-500/20 text-green-400 border border-green-500"
+              : "bg-red-500/20 text-red-400 border border-red-500"
+          }`}
+        >
+          {message}
+        </div>
+      )}
+
       <div className="mb-4 w-full max-w-[982px]">
-        {" "}
-        {/* Constrain div width for centering */}
         <label
           htmlFor="currentPassword"
           className="block text-white text-sm font-bold mb-2"
@@ -47,15 +81,15 @@ export default function ChangePasswordForm() {
         <input
           type="password"
           id="currentPassword"
-          className="shadow appearance-none rounded w-full h-[50px] py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  border border-[#C3C3C3] text-white" // Applied styles
+          className="shadow appearance-none rounded w-full h-[50px] py-3 px-4 bg-transparent leading-tight focus:outline-none focus:shadow-outline border border-[#C3C3C3] text-white"
           value={currentPassword}
           onChange={(e) => setCurrentPassword(e.target.value)}
+          disabled={loading}
           required
         />
       </div>
+
       <div className="mb-4 w-full max-w-[982px]">
-        {" "}
-        {/* Constrain div width for centering */}
         <label
           htmlFor="newPassword"
           className="block text-white text-sm font-bold mb-2"
@@ -65,15 +99,15 @@ export default function ChangePasswordForm() {
         <input
           type="password"
           id="newPassword"
-          className="shadow appearance-none rounded w-full h-[50px] py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  border border-[#C3C3C3] text-white" // Applied styles
+          className="shadow appearance-none rounded w-full h-[50px] py-3 px-4 bg-transparent leading-tight focus:outline-none focus:shadow-outline border border-[#C3C3C3] text-white"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
+          disabled={loading}
           required
         />
       </div>
+
       <div className="mb-6 w-full max-w-[982px]">
-        {" "}
-        {/* Constrain div width for centering */}
         <label
           htmlFor="confirmedPassword"
           className="block text-white text-sm font-bold mb-2"
@@ -83,30 +117,24 @@ export default function ChangePasswordForm() {
         <input
           type="password"
           id="confirmedPassword"
-          className="shadow appearance-none rounded w-full h-[50px] py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  border border-[#C3C3C3] text-white" // Applied styles
+          className="shadow appearance-none rounded w-full h-[50px] py-3 px-4 bg-transparent leading-tight focus:outline-none focus:shadow-outline border border-[#C3C3C3] text-white"
           value={confirmedPassword}
           onChange={(e) => setConfirmedPassword(e.target.value)}
+          disabled={loading}
           required
         />
       </div>
-      {message && (
-        <p
-          className={`text-center mb-4 ${
-            messageType === "success" ? "text-green-500" : "text-red-500"
-          }`}
-        >
-          {message}
-        </p>
-      )}
+
       <div className="flex items-center justify-center mt-6 md:w-[982px]">
         <button
           type="submit"
-          className="bg-[#00C1C9] hover:bg-opacity-80 text-white  font-bold w-full py-3 px-4 rounded-[4px] focus:outline-none focus:shadow-outline "
+          className="bg-[#00C1C9] hover:bg-opacity-80 text-white font-bold w-full py-3 px-4 rounded-[4px] focus:outline-none focus:shadow-outline disabled:opacity-50 disabled:cursor-not-allowed"
           style={{
             boxShadow: "3px 3px 0px 0px #71F50C",
           }}
+          disabled={loading}
         >
-          Save Changes
+          {loading ? "Changing Password..." : "Save Changes"}
         </button>
       </div>
     </form>

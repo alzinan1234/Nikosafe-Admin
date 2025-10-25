@@ -4,6 +4,14 @@ export const API_CONFIG = {
     ENDPOINTS: {
         // ==================== AUTHENTICATION ====================
         ADMIN_LOGIN: "/api/accounts/login/",
+
+         // ==================== PASSWORD MANAGEMENT ====================
+    PASSWORD_RESET_REQUEST: "/api/accounts/password/reset-request/",
+    PASSWORD_RESET_VERIFY_OTP: "/api/accounts/password/reset-verify-otp/",
+    PASSWORD_RESET_CONFIRM: "/api/accounts/password/reset-confirm/",
+    PASSWORD_CHANGE: "/api/accounts/password/change/",
+    RESEND_OTP: "/api/accounts/resend-otp/",
+    VERIFY_OTP: "/api/accounts/verify-otp/",
         
         // ==================== ADMIN - USER MANAGEMENT ====================
         ADMIN_USERS_GET: "/api/dashboard/admin/users/",
@@ -66,6 +74,14 @@ export const API_CONFIG = {
         ADMIN_FAQS_DELETE: (faqId) => `/api/core/faqs/${faqId}/delete/`,
 
 
+        
+
+    ADMIN_PROFILE_UPDATE: "/api/hospitality/profile-management/update/",
+    
+    // Password Management
+    PASSWORD_CHANGE: "/api/accounts/password/change/",
+
+
 
         // ==================== NOTIFICATIONS ====================
         NOTIFICATION_LIST: "/api/notification/list/",
@@ -76,6 +92,8 @@ export const API_CONFIG = {
         NOTIFICATION_UNREAD_COUNT: "/api/notification/list/unread_count/",
         NOTIFICATION_DELETE: (notificationId) => `/api/notification/list/${notificationId}/`,
         NOTIFICATION_CLEAR_ALL: "/api/notification/list/clear_all/",
+
+        
     }
 };
 
