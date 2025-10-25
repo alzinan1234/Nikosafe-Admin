@@ -3,9 +3,10 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: [
-      "via.placeholder.com", 
+      "via.placeholder.com",
       "luke-stat-forming-kinase.trycloudflare.com",
-      "weekly-ontario-picked-qualified.trycloudflare.com" // Added new domain
+      "weekly-ontario-picked-qualified.trycloudflare.com",
+      "tamil-opt-healthy-will.trycloudflare.com" // Added new domain
     ],
     remotePatterns: [
       {
@@ -29,6 +30,18 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'weekly-ontario-picked-qualified.trycloudflare.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'tamil-opt-healthy-will.trycloudflare.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'tamil-opt-healthy-will.trycloudflare.com',
         port: '',
         pathname: '/**',
       },
